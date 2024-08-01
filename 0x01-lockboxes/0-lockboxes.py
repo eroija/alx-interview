@@ -3,16 +3,21 @@
 
 
 def canUnlockAll(boxes):
-    """Function that determines if all the boxes are opened."""
-    keys_seen = set()
-    queue = [0]
+    """Function that determines if all the boxes are opened.
 
+    Args:
+        boxes (List[List[int]]): list of lists of integers.
+
+    Returns:
+        boolean: True if all boxes can be unlocked, by using all the keys
+        available in all the reachable boxes, and False otherwise.
+    """
+    visited = {0}
+    queue = [boxes[0]]
     while queue:
-        current_box = queue.pop(0)
-        keys_seen.add(current_box)
-
-        for key in boxes[current_box]:
-            if key not in keys_seen:
-                queue.append(key)
-
-    return len(keys_seen) == len(boxes)
+        box = queue.pop(0)
+        for key in box:
+            if key not in visited and key < len(boxes):
+                visited.add(key)
+                queue.append(boxes[key])
+    return len(visited) == len(boxes)
