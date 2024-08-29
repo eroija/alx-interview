@@ -4,14 +4,15 @@ import sys
 
 
 solutions = []
-
+"""The list of possible solutions to the N queens problem."""
 n = 0
-
+"""The size of the chessboard."""
 pos = None
+"""The list of possible positions on the chessboard."""
 
 
 def get_input():
-    """Retrieves input from user and validates it."""
+    """Retrieves and validates this program's argument."""
     global n
     n = 0
     if len(sys.argv) != 2:
@@ -36,9 +37,8 @@ def is_attacking(pos0, pos1):
 
 
 def group_exists(group):
-    """Checks if the given group is already in the solutions list."""
+    """Checks if a group exists in the list of solutions."""
     global solutions
-
     for stn in solutions:
         i = 0
         for stn_pos in stn:
@@ -51,7 +51,7 @@ def group_exists(group):
 
 
 def build_solution(row, group):
-    """Recursively build the solutions by adding queens to the board."""
+    """Builds a solution for the n queens problem."""
     global solutions
     global n
     if row == n:
@@ -70,20 +70,15 @@ def build_solution(row, group):
 
 
 def get_solutions():
-    """
-    Generates all possible solutions to the N queens problem by building
-    each solution recursively.
-    """
+    """Gets the solutions for given chessboard size."""
     global pos, n
     pos = list(map(lambda x: [x // n, x % n], range(n ** 2)))
     a = 0
     group = []
     build_solution(a, group)
 
-    n = get_input()
 
-    get_solutions()
-
-
+n = get_input()
+get_solutions()
 for solution in solutions:
     print(solution)
